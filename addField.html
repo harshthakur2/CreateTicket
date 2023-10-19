@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customized Fields Form</title>
+    <link rel="stylesheet" type="text/css" href="addField.css">
+</head>
+<body>
+    <h1>Add Custom Fields</h1>
+    <form id="customFieldsForm">
+        <div id="customFieldsContainer">
+            <!-- Initially, no fields are shown -->
+        </div>
+
+        <button type="button" id="addFieldButton">Add Field</button>
+        <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Function to add a new field row to the form
+        function addField() {
+            const customFieldsContainer = document.getElementById('customFieldsContainer');
+
+            const fieldRow = document.createElement('div');
+            fieldRow.classList.add('field-row');
+
+            const fieldTitleLabel = document.createElement('label');
+            fieldTitleLabel.textContent = 'Field Title';
+            const fieldTitleInput = document.createElement('input');
+            fieldTitleInput.type = 'text';
+            fieldTitleInput.name = 'field-title';
+
+            const fieldTypeLabel = document.createElement('label');
+            fieldTypeLabel.textContent = 'Field Type';
+            const fieldTypeDropdown = document.createElement('select');
+            fieldTypeDropdown.name = 'field-type';
+            const fieldTypes = ['Text', 'Number', 'Dropdown', 'Checkbox'];
+            fieldTypes.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.text = type;
+                fieldTypeDropdown.appendChild(option);
+            });
+
+            const addDescriptionButton = document.createElement('button');
+            addDescriptionButton.type = 'button';
+            addDescriptionButton.textContent = 'Add Description';
+
+            // Add a description input when the "Add Description" button is clicked
+            addDescriptionButton.addEventListener('click', () => {
+                const descriptionInput = document.createElement('input');
+                descriptionInput.type = 'text';
+                descriptionInput.placeholder = 'Description';
+                descriptionInput.name = 'field-description';
+                fieldRow.appendChild(descriptionInput);
+            });
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.textContent = 'Remove Field';
+            removeButton.addEventListener('click', () => {
+                customFieldsContainer.removeChild(fieldRow);
+            });
+
+            fieldRow.appendChild(fieldTitleLabel);
+            fieldRow.appendChild(fieldTitleInput);
+            fieldRow.appendChild(fieldTypeLabel);
+            fieldRow.appendChild(fieldTypeDropdown);
+            fieldRow.appendChild(addDescriptionButton);
+            fieldRow.appendChild(removeButton);
+            customFieldsContainer.appendChild(fieldRow);
+        }
+
+        // Add a field when the "Add Field" button is clicked
+        document.getElementById('addFieldButton').addEventListener('click', addField);
+
+        // Prevent the form from submitting for this example
+        document.getElementById('customFieldsForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            alert('Form submitted. You can process the custom fields here.');
+        });
+    </script>
+</body>
+</html>
